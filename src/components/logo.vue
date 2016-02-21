@@ -13,10 +13,18 @@
         return this.event && this.event.relationships.group.attributes.logo
       },
       groupName () {
-        return this.event && this.event.relationships.group.attributes.name
+        if (this.source) {
+          return this.event.relationships.group.attributes.name
+        } else {
+          return 'Click here for instructions on setting a photo for your group. Once you do, it will start appearing here within an hour.'
+        }
       },
       groupURL () {
-        return this.event && this.event.links.self
+        if (this.source) {
+          return this.event && this.event.links.self
+        } else {
+          return 'http://help.meetup.com/customer/en/portal/articles/930770-meetup-group-settings'
+        }
       }
     }
   }
