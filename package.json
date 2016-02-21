@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "rimraf dist && cross-env NODE_ENV=production webpack --progress --hide-modules --config build/webpack.prod.conf.js",
-    "deploy": "npm run build && surge -p dist",
+    "deploy": "npm run build && surge -p dist && open http://`cat src/surge/CNAME`/",
     "test": "karma start build/karma.conf.js --single-run"
   },
   "dependencies": {
