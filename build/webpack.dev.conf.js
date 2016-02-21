@@ -13,6 +13,10 @@ Object.keys(config.entry).forEach(function (name, i) {
   config.entry[name] = extras.concat(config.entry[name])
 })
 
+config.vue = config.vue || {}
+config.vue.loaders = config.vue.loaders || {}
+config.vue.loaders.scss = 'vue-style-loader!css-loader!sass-loader'
+
 // necessary for the html plugin to work properly
 // when serving the html from in-memory
 config.output.publicPath = '/'

@@ -98,7 +98,9 @@
   }
 </script>
 
-<style>
+<style lang="scss">
+  @import './scss/globals';
+
   *, *:before, *:after {
     box-sizing: border-box;
   }
@@ -106,22 +108,22 @@
     height: 100%;
   }
   body {
-    font-family: 'Open Sans', Helvetica, sans-serif;
-    font-weight: 300;
-    line-height: 1.4;
-    color: #535353;
-    background: linear-gradient(45deg, #d3d8dc 0%,#c7ced4 100%);
+    font-family: $default-font-family;
+    font-weight: $default-font-weight;
+    line-height: $default-line-height;
+    color: $text-color;
+    background: $slide-bg;
     padding: 30px;
   }
   h1,h2,h3,h4,h5,h6,strong {
-    font-weight: 400;
+    font-weight: $bolded-font-weight;
   }
   a, a:visited {
-    color: #3E79B9;
+    color: $link-color;
     text-decoration: none;
   }
   a:hover, a:active {
-    color: #326fb1;
+    color: $link-color-active;
     text-decoration: underline;
   }
   #app {

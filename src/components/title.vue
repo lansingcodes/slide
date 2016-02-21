@@ -53,44 +53,67 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import '../scss/globals';
+
+  // TEXT
+  $title-text-font-size: 40px;
+
+  // IMAGE
+  $title-image-padding: 50px;
+  $title-image-max-height: 300px;
+
+  // IMAGE INPUT
+  $title-image-input-line-height: 30px;
+  $title-image-input-vertical-padding: 5px;
+  $title-image-input-horizontal-padding: 10px;
+  $title-image-input-border-width: 2px;
+  $title-image-input-hover-opacity: 0.8;
+  $title-image-input-fade-time: 0.3s;
+
   .slide-title {
-    position: absolute;
-    top: 100px;
-    width: 100%;
-    text-align: center;
-  }
-  .slide-title h1 {
-    margin: 0;
-    font-size: 40px;
-  }
-  .slide-title h1 textarea {
-    width: 100%;
-    text-align: center;
-  }
-  .slide-title .image-changer {
-    position: relative;
-    max-width: calc(100% - 500px);
-    margin: 0 auto;
-    text-align: center;
-  }
-  .slide-title .image-changer > img {
-    max-width: 100%;
-    max-height: 300px;
-  }
-  .slide-title .image-changer > input {
     width: 100%;
     position: absolute;
-    top: 50%;
-    left: 0;
-    margin-top: -20px;
-    line-height: 30px;
-    opacity: 0;
-    transition: all 0.3s;
-    padding: 5px 10px;
-    outline: 0;
-  }
-  .slide-title .image-changer:hover > input {
-    opacity: 0.8;
+    top: $title-distance-from-top;
+    text-align: center;
+
+    h1 {
+      margin: 0;
+      font-size: $title-text-font-size;
+
+      textarea {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    .image-changer {
+      max-width: calc(100% - #{$events-width * 2 + $title-image-padding});
+      margin: 0 auto;
+      position: relative;
+
+      & > img {
+        max-width: 100%;
+        max-height: $title-image-max-height;
+      }
+
+      & > input {
+        width: 100%;
+        line-height: $title-image-input-line-height;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: ($title-image-input-line-height + $title-image-input-vertical-padding * 2 + $title-image-input-border-width) / -2;
+        opacity: 0;
+        transition: opacity $title-image-input-fade-time;
+        padding: $title-image-input-vertical-padding $title-image-input-horizontal-padding;
+        border-width: $title-image-input-border-width;
+        outline: 0;
+      }
+
+      &:hover > input {
+        opacity: $title-image-input-hover-opacity;
+      }
+    }
   }
 </style>

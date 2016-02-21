@@ -18,16 +18,22 @@ config.devtool = SOURCE_MAP ? 'source-map' : false
 // generate loader string to be used with extract text plugin
 function generateExtractLoaders (loaders) {
   return loaders.map(function (loader) {
-    return loader + '-loader' + (SOURCE_MAP ? '?sourceMap' : '')
+    var extraParamChar
+    if (/\?/.test(loader)) {
+      loader = loader.replace(/\?/, '-loader?')
+      extraParamChar = '&'
+    } else {
+      loader = loader + '-loader'
+      extraParamChar = '?'
+    }
+    return loader + (SOURCE_MAP ? extraParamChar + 'sourceMap' : '')
   }).join('!')
 }
 
 // http://vuejs.github.io/vue-loader/configurations/extract-css.html
 var cssExtractLoaders = {
   css: ExtractTextPlugin.extract('vue-style-loader', generateExtractLoaders(['css'])),
-  less: ExtractTextPlugin.extract('vue-style-loader', generateExtractLoaders(['css', 'less'])),
-  sass: ExtractTextPlugin.extract('vue-style-loader', generateExtractLoaders(['css', 'sass'])),
-  stylus: ExtractTextPlugin.extract('vue-style-loader', generateExtractLoaders(['css', 'stylus']))
+  scss: ExtractTextPlugin.extract('vue-style-loader', generateExtractLoaders(['css', 'sass']))
 }
 
 config.vue = config.vue || {}

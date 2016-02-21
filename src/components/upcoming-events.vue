@@ -40,31 +40,54 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import '../scss/globals';
+
+  // HEADING
+  $events-heading-margin-bottom: 15px;
+  $events-heading-font-weight: $default-font-weight;
+
+  // EVENT
+  $event-spacing: 10px;
+
+  // EVENT META
+  $event-meta-relative-font-size: 0.8em;
+
+  // EVENT DATE
+  $event-date-font-weight: $default-font-weight;
+
+  // EVENT CATEGORY
+  $event-category-font-weight: $bolded-font-weight;
+  $event-category-text-tranform: uppercase;
+
   .upcoming-events {
     position: absolute;
     bottom: 0;
-  }
-  .upcoming-events h2 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-weight: 300;
-  }
-  .upcoming-events textarea {
-    min-width: 230px;
-    width: 100%;
-  }
-  .upcoming-events h3 {
-    margin-top: 10px;
-    margin-bottom: 0;
-  }
-  .upcoming-events h3 aside {
-    font-weight: 300;
-    font-size: 0.8em;
-  }
-  .upcoming-events h3 aside a {
-    font-weight: 400;
-    display: block;
-    text-transform: uppercase;
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: $events-heading-margin-bottom;
+      font-weight: $events-heading-font-weight;
+    }
+
+    h3 {
+      margin-top: $event-spacing;
+      margin-bottom: 0;
+
+      aside {
+        font-size: $event-meta-relative-font-size;
+        font-weight: $event-date-font-weight;
+
+        a {
+          display: block;
+          font-weight: $event-category-font-weight;
+          text-transform: $event-category-text-tranform;
+        }
+      }
+    }
+
+    textarea {
+      width: $events-width;
+    }
   }
 </style>

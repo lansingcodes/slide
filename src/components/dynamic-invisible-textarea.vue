@@ -16,12 +16,13 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   textarea {
+    margin: 0;
+    padding: 0;
     background: transparent;
     border: none;
     outline: none;
     resize: none;
-    padding: 0;
   }
 </style>

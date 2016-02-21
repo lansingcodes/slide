@@ -8,22 +8,32 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import '../scss/globals';
+
+  $slack-invitation-line-height: 20px;
+  $slack-invitation-font-size: 18px;
+
   .slack-invitation {
+    width: 100%;
+    line-height: $slack-invitation-line-height;
     position: absolute;
     bottom: 0;
-    width: 100%;
     text-align: center;
     pointer-events: none;
-    line-height: 20px;
-  }
-  .slack-invitation a {
-    pointer-events: all;
-  }
-  .slack-invitation img, .slack-invitation strong {
-    height: 20px;
-    line-height: 20px;
-    font-size: 18px;
-    vertical-align: middle;
+
+    a {
+      pointer-events: all;
+    }
+
+    img {
+      height: $slack-invitation-line-height;
+      vertical-align: middle;
+    }
+    strong {
+      line-height: $slack-invitation-line-height;
+      font-size: $slack-invitation-font-size;
+      vertical-align: middle;
+    }
   }
 </style>

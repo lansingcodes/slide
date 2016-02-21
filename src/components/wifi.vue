@@ -34,31 +34,47 @@
   }
 </script>
 
-<style scoped>
-  .wifi-container h2 {
-    line-height: 1;
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 20px;
-    font-weight: 300;
-    text-align: right;
-  }
+<style lang="scss" scoped>
+  @import '../scss/globals';
+
+  // HEADING
+  $wifi-heading-margin-bottom: 10px;
+  $wifi-heading-font-size: 20px;
+  $wifi-headding-font-weight: $default-font-weight;
+
+  // LABELS
+  $wifi-label-font-weight: $default-font-weight;
+
+  // TEXTAREAS
+  $wifi-field-width: 100px;
+  $wifi-field-font-weight: $bolded-font-weight;
+
   .wifi-container {
     position: absolute;
     top: 0;
     right: 0;
-  }
-  .wifi-container th, .wifi-container td textarea {
-    text-align: right;
-    vertical-align: middle;
-  }
-  .wifi-container th {
-    font-weight: 300;
-  }
-  .wifi-container td textarea {
-    font-weight: 400;
-  }
-  .wifi-container td textarea {
-    width: 100px;
+
+    h2 {
+      line-height: 1;
+      margin-top: 0;
+      margin-bottom: $wifi-heading-margin-bottom;
+      font-size: $wifi-heading-font-size;
+      font-weight: $wifi-headding-font-weight;
+      text-align: right;
+    }
+
+    th, td textarea {
+      text-align: right;
+      vertical-align: middle;
+    }
+
+    th {
+      font-weight: $wifi-label-font-weight;
+    }
+
+    td textarea {
+      width: $wifi-field-width;
+      font-weight: $wifi-field-font-weight;
+    }
   }
 </style>

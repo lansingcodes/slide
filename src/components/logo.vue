@@ -30,9 +30,11 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import '../scss/globals';
+
   img {
-    width: 75px;
+    width: $logo-size;
     position: absolute;
     top: 0;
     left: 0;
