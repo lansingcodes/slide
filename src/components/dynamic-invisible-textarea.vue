@@ -2,9 +2,7 @@
   <textarea
     rows="1"
     :style="style"
-  >
-    {{ defaultValue }}
-  </textarea>
+  >{{ defaultValue }}</textarea>
 </template>
 
 <script>
