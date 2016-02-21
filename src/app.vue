@@ -22,10 +22,13 @@
 </template>
 
 <script>
+  // VENDOR
   import moment from 'moment'
 
+  // HELPERS
   import rehydrateJSON from './helpers/rehydrate-json'
 
+  // COMPONENTS
   import Title from './components/title'
   import Wifi from './components/wifi'
   import UpcomingEvents from './components/upcoming-events'
@@ -33,67 +36,89 @@
   import Logo from './components/logo'
 
   export default {
+    // COMPONENTS
+    components: {
+      Title, Wifi, UpcomingEvents, SlackInvitation, Logo
+    },
+    // STATE
     data () {
       return {
         currentEvent: null,
         groupEvents: [],
         otherEvents: [],
-        focus: decodeURIComponent(window.location.hash.slice(1))
+        groupFocus: this.getHashFromURL()
       }
     },
-    methods: {
-      fetchEvents () {
-        if (this.focus.length === 0) {
-          this.$set('currentEvent', null)
-          this.$set('groupEvents', [])
-          this.$set('otherEvents', [])
-          return
-        }
-        this.$http.get(`http://api.lansing.codes/v1/events/upcoming/search/${encodeURIComponent(this.focus)}?per_group_limit=5`).then(response => {
-          let groupEvents = rehydrateJSON(response.data)
-          const currentEvent = groupEvents.shift()
-          this.$set('currentEvent', currentEvent)
-          this.$set('groupEvents', groupEvents)
-
-          if (currentEvent === undefined) {
-            this.$set('otherEvents', [])
-            return
-          }
-
-          this.$http.get('http://api.lansing.codes/v1/events/upcoming/list').then(response => {
-            const otherEvents = rehydrateJSON(response.data).filter(event => {
-              return event.relationships.group.attributes.slug !== currentEvent.relationships.group.attributes.slug &&
-                !moment(event.attributes.time.absolute).isSame(new Date(), 'day')
-            })
-            this.$set('otherEvents', otherEvents)
-          }, error => {
-            throw new Error('Could not communicate with api.lansing.codes', error)
-          })
-        }, error => {
-          throw new Error('Could not communicate with api.lansing.codes', error)
-        })
-      },
-      setFocus () {
-        const focus = decodeURIComponent(window.location.hash.slice(1))
-        this.$set('focus', focus)
-      }
-    },
-    created () {
-      this.fetchEvents()
-      window.addEventListener('hashchange', this.setFocus)
-    },
-    watch: {
-      focus () {
-        this.fetchEvents()
-      }
-    },
+    // COMPUTED
     computed: {
       currentGroupUpcomingTitle () {
         return this.currentEvent && ('Upcoming ' + this.currentEvent.relationships.group.attributes.focus)
       }
     },
-    components: {
-      Title, Wifi, UpcomingEvents, SlackInvitation, Logo
+    // LIFECYCLE
+    created () {
+      this.fetchEvents()
+      window.addEventListener('hashchange', this.setGroupFocus)
+    },
+    beforeDestroy () {
+      window.removeEventListener('hashchange', this.setGroupFocus)
+    },
+    // WATCHERS
+    watch: {
+      groupFocus () {
+        this.fetchEvents()
+      }
+    },
+    // HELPERS
+    methods: {
+      fetchEvents () {
+        // Don't even try to fetch events if
+        // no group focus has been set
+        if (this.groupFocus.length === 0) {
+          this.$set('currentEvent', null)
+          this.$set('groupEvents', [])
+          this.$set('otherEvents', [])
+          return
+        }
+
+        this.$http
+          .get(`http://api.lansing.codes/v1/events/upcoming/search/${encodeURIComponent(this.groupFocus)}?per_group_limit=5`)
+          .then(
+            response => {
+              let groupEvents = rehydrateJSON(response.data)
+              const currentEvent = groupEvents.shift()
+              this.$set('currentEvent', currentEvent)
+              this.$set('groupEvents', groupEvents)
+
+              if (currentEvent === undefined) {
+                this.$set('otherEvents', [])
+                return
+              }
+
+              this.$http
+                .get('http://api.lansing.codes/v1/events/upcoming/list')
+                .then(
+                  response => {
+                    const otherEvents = rehydrateJSON(response.data).filter(event => {
+                      return event.relationships.group.attributes.slug !== currentEvent.relationships.group.attributes.slug &&
+                        !moment(event.attributes.time.absolute).isSame(new Date(), 'day')
+                    })
+                    this.$set('otherEvents', otherEvents)
+                  }, error => {
+                    throw new Error('Could not communicate with api.lansing.codes ::', error)
+                  }
+                )
+            }, error => {
+              throw new Error('Could not communicate with api.lansing.codes ::', error)
+            }
+          )
+      },
+      getHashFromURL () {
+        return decodeURIComponent(window.location.hash.slice(1))
+      },
+      setGroupFocus () {
+        this.$set('groupFocus', this.getHashFromURL())
+      }
     }
   }
 </script>

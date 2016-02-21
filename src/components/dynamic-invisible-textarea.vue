@@ -6,10 +6,22 @@
 </template>
 
 <script>
+  // VENDOR
   import autosize from 'autosize'
 
   export default {
-    props: [ 'defaultValue', 'style' ],
+    // PROPS
+    props: {
+      defaultValue: {
+        type: String,
+        default: ''
+      },
+      style: {
+        type: String,
+        default: ''
+      }
+    },
+    // LIFECYCLE
     ready () {
       autosize(this.$el)
     }

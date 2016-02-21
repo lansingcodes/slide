@@ -5,10 +5,7 @@
       <aside>
         <a :href="event.links.self" target="_blank">{{ event.relationships.group.attributes.focus }}</a>
         <div>
-          {{
-            moment(event.attributes.time.absolute)
-              .format('MMMM Do')
-          }}
+          {{ formatDate(event) }}
           (in {{ event.attributes.time.relative }})
         </div>
       </aside>
@@ -21,21 +18,44 @@
 </template>
 
 <script>
+  // VENDOR
   import moment from 'moment'
 
+  // COMPONENTS
   import DynamicInvisibleTextarea from './dynamic-invisible-textarea'
 
   export default {
-    props: [
-      'events', 'heading', 'position'
-    ],
-    data () {
-      return {
-        moment: moment
-      }
-    },
+    // COMPONENTS
     components: {
       DynamicInvisibleTextarea
+    },
+    // PROPS
+    props: {
+      events: {
+        type: Array,
+        required: true
+      },
+      heading: {
+        required: true,
+        validator: value => {
+          return typeof value === 'string' || value === null
+        }
+      },
+      position: {
+        type: String,
+        required: true,
+        validator: value => {
+          return ['left', 'right'].some(validValue => {
+            return value === validValue
+          })
+        }
+      }
+    },
+    // HELPERS
+    methods: {
+      formatDate (event) {
+        return moment(event.attributes.time.absolute).format('MMMM Do')
+      }
     }
   }
 </script>

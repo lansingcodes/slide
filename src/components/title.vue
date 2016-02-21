@@ -3,7 +3,7 @@
     <h1>
       <dynamic-invisible-textarea
         v-if="event"
-        :default-value="event.attributes.name"
+        :default-value="eventName"
       ></dynamic-invisible-textarea>
       <span v-else>
         Visit
@@ -21,34 +21,61 @@
 </template>
 
 <script>
+  // HELPERS
+  import isObject from '../helpers/is-object'
+
+  // COMPONENTS
   import DynamicInvisibleTextarea from './dynamic-invisible-textarea'
 
-  let currentTopicIndex = 0
+  // CONSTANTS
   const possibleTopics = [
     'devops', 'ruby', 'sql', 'web', 'javascript', 'glugnet', 'mobile',
     'agile', 'testers'
   ]
 
   export default {
-    props: [ 'event' ],
+    // COMPONENTS
+    components: {
+      DynamicInvisibleTextarea
+    },
+    // PROPS
+    props: {
+      event: {
+        required: true,
+        validator: value => {
+          return isObject(value) || value === null
+        }
+      }
+    },
+    // STATE
     data () {
       return {
         imageUrl: '',
-        currentTopic: possibleTopics[currentTopicIndex]
+        currentTopicIndex: 0,
+        currentTopicUpdater: undefined
       }
     },
+    // COMPUTED
+    computed: {
+      currentTopic () {
+        return possibleTopics[this.currentTopicIndex]
+      },
+      eventName () {
+        return this.event.attributes.name
+      }
+    },
+    // LIFECYCLE
     ready () {
-      setInterval(() => {
-        if (currentTopicIndex === possibleTopics.length - 1) {
-          currentTopicIndex = 0
+      this.currentTopicIndexUpdater = setInterval(() => {
+        if (this.currentTopicIndex === possibleTopics.length - 1) {
+          this.$set('currentTopicIndex', 0)
         } else {
-          currentTopicIndex++
+          this.$set('currentTopicIndex', this.currentTopicIndex + 1)
         }
-        this.$set('currentTopic', possibleTopics[currentTopicIndex])
       }, 3000)
     },
-    components: {
-      DynamicInvisibleTextarea
+    beforeDestroy () {
+      clearInterval(this.currentTopicIndexUpdater)
     }
   }
 </script>

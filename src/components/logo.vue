@@ -7,7 +7,9 @@
 
 <script>
   export default {
+    // PROPS
     props: [ 'event' ],
+    // COMPUTED
     computed: {
       source () {
         return this.event && this.event.relationships.group.attributes.logo

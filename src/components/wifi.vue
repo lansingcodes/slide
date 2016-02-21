@@ -25,9 +25,11 @@
 </template>
 
 <script>
+  // COMPONENTS
   import DynamicInvisibleTextarea from './dynamic-invisible-textarea'
 
   export default {
+    // COMPONENTS
     components: {
       DynamicInvisibleTextarea
     }
@@ -45,7 +47,7 @@
   // LABELS
   $wifi-label-font-weight: $default-font-weight;
 
-  // TEXTAREAS
+  // FIELDS
   $wifi-field-width: 100px;
   $wifi-field-font-weight: $bolded-font-weight;
 
