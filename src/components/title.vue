@@ -7,7 +7,7 @@
       ></dynamic-invisible-textarea>
       <span v-else>
         Visit
-        <a href="/#{{currentTopic}}">/#{{currentTopic}}</a>
+        <a href="#{{currentTopic}}">#{{currentTopic}}</a>
         to generate a<br>
         welcome slide for a specific group's event<br><br>
       </span>
