@@ -1,4 +1,4 @@
- <template>
+<template>
   <textarea rows="1">{{ defaultValue }}</textarea>
 </template>
 

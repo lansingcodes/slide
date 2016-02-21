@@ -23,29 +23,28 @@
 <script>
   import DynamicInvisibleTextarea from './dynamic-invisible-textarea'
 
+  let currentTopicIndex = 0
+  const possibleTopics = [
+    'devops', 'ruby', 'sql', 'web', 'javascript', 'glugnet', 'mobile',
+    'agile', 'testers'
+  ]
+
   export default {
     props: [ 'event' ],
     data () {
       return {
         imageUrl: '',
-        possibleTopics: [
-          'javascript', 'ruby', 'devops', 'agile', 'web', 'glugnet',
-          'pmi', 'c#', 'js', 'rb', 'mobile', 'sql'
-        ],
-        currentTopic: 'javascript'
+        currentTopic: possibleTopics[currentTopicIndex]
       }
     },
     ready () {
-      const newRandomTopic = () => {
-        const newTopic = this.possibleTopics[Math.floor(Math.random() * this.possibleTopics.length)]
-        if (this.currentTopic !== newTopic) {
-          return newTopic
-        } else {
-          return newRandomTopic()
-        }
-      }
       setInterval(() => {
-        this.$set('currentTopic', newRandomTopic())
+        if (currentTopicIndex === possibleTopics.length - 1) {
+          currentTopicIndex = 0
+        } else {
+          currentTopicIndex++
+        }
+        this.$set('currentTopic', possibleTopics[currentTopicIndex])
       }, 3000)
     },
     components: {
