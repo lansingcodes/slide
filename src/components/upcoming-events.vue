@@ -1,5 +1,5 @@
 <template>
-  <div v-if="events.length > 0" class="upcoming-events" :style="position + ': 0'">
+  <div v-if="events.length > 0" class="upcoming-events" :style="position + ': 0; text-align: ' + position">
     <h2>{{ heading }}</h2>
     <h3 v-for="event in events | limitBy 3">
       <aside>
@@ -13,6 +13,7 @@
         </div>
       </aside>
       <dynamic-invisible-textarea
+        :style="'text-align: ' + position"
         :default-value="event.attributes.name"
       ></dynamic-invisible-textarea>
     </h3>
@@ -50,7 +51,7 @@
     font-weight: 300;
   }
   .upcoming-events textarea {
-    min-width: 300px;
+    min-width: 230px;
     width: 100%;
   }
   .upcoming-events h3 {

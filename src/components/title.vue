@@ -70,7 +70,7 @@
   }
   .slide-title .image-changer {
     position: relative;
-    max-width: calc(90% - 600px);
+    max-width: calc(100% - 500px);
     max-height: 250px;
     margin: 0 auto;
     text-align: center;

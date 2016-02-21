@@ -1,12 +1,17 @@
 <template>
-  <textarea rows="1">{{ defaultValue }}</textarea>
+  <textarea
+    rows="1"
+    :style="style"
+  >
+    {{ defaultValue }}
+  </textarea>
 </template>
 
 <script>
   import autosize from 'autosize'
 
   export default {
-    props: [ 'defaultValue' ],
+    props: [ 'defaultValue', 'style' ],
     ready () {
       autosize(this.$el)
     }
