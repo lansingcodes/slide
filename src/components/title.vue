@@ -3,6 +3,7 @@
     <h1>
       <dynamic-invisible-textarea
         v-if="event"
+        name="slideTitle"
         :default-value="eventName"
       ></dynamic-invisible-textarea>
       <span v-else>
@@ -23,6 +24,7 @@
 <script>
   // HELPERS
   import isObject from '../helpers/is-object'
+  import QueryAttribute from '../helpers/query-attribute'
 
   // COMPONENTS
   import DynamicInvisibleTextarea from './dynamic-invisible-textarea'
@@ -32,6 +34,7 @@
     'devops', 'ruby', 'sql', 'web', 'javascript', 'glugnet', 'mobile',
     'agile', 'testers'
   ]
+  const queryAttributeImageUrl = QueryAttribute('imageUrl')
 
   export default {
     // COMPONENTS
@@ -50,7 +53,7 @@
     // STATE
     data () {
       return {
-        imageUrl: '',
+        imageUrl: queryAttributeImageUrl.getValue() || '',
         currentTopicIndex: 0,
         currentTopicUpdater: undefined
       }
@@ -76,6 +79,12 @@
     },
     beforeDestroy () {
       clearInterval(this.currentTopicIndexUpdater)
+    },
+    // WATCHERS
+    watch: {
+      imageUrl (newValue, oldValue) {
+        queryAttributeImageUrl.setValue(newValue)
+      }
     }
   }
 </script>

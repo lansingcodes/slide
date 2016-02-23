@@ -10,6 +10,7 @@
         </div>
       </aside>
       <dynamic-invisible-textarea
+        :name="eventTitleName(event)"
         :style="'text-align: ' + position"
         :default-value="event.attributes.name"
       ></dynamic-invisible-textarea>
@@ -55,6 +56,10 @@
     methods: {
       formatDate (event) {
         return moment(event.attributes.time.absolute).format('MMMM Do')
+      },
+      eventTitleName (event) {
+        const uniqueIdentifier = event.attributes.id
+        return `eventTitle${uniqueIdentifier}`
       }
     }
   }

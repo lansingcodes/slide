@@ -7,6 +7,7 @@
           <th>ssid</th>
           <td>
             <dynamic-invisible-textarea
+              name="wifiSSID"
               default-value="300 Room"
             ></dynamic-invisible-textarea>
           </td>
@@ -15,6 +16,7 @@
           <th>pw</th>
           <td>
             <dynamic-invisible-textarea
+              name="wifiPW"
               default-value="success!"
             ></dynamic-invisible-textarea>
           </td>
