@@ -16,7 +16,19 @@
     <div class="image-changer">
       <img v-if="imageUrl" :src="imageUrl">
       <img v-else src="../assets/images/lansingcodes-logo.svg">
-      <input v-model="imageUrl" type="text" placeholder="Paste Image URL">
+      <input v-model="imageUrl" type="text" placeholder="Enter search or paste image URL" debounce="500">
+      <ul
+        v-if="imageResults.length > 0"
+        class="image-search-results"
+      >
+        <li v-for="image in imageResults">
+          <img
+            :src="image"
+            alt="Result image for '{{imageURL}}'"
+            @click="setImageUrl(image)"
+          >
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -54,6 +66,7 @@
     data () {
       return {
         imageUrl: queryAttributeImageUrl.getValue() || '',
+        imageResults: [],
         currentTopicIndex: 0,
         currentTopicUpdater: undefined
       }
@@ -84,6 +97,44 @@
     watch: {
       imageUrl (newValue, oldValue) {
         queryAttributeImageUrl.setValue(newValue)
+        if (newValue && !this.isUrl(newValue)) {
+          this.$http.get(
+            'https://api.datamarket.azure.com/Bing/Search/v1/Image', {
+              Query: `\'${newValue} *.png\'`,
+              Options: '\'DisableLocationDetection\'',
+              Adult: '\'Strict\'',
+              ImageFilters: '\'Style:Graphics\''
+            }, {
+              headers: {
+                Accept: 'application/json',
+                Authorization: `Basic ${window.btoa('B/Xjov7XSkWgyLFeZuMU3LB3bNXdqMwc5YtjG8EqtX0:B/Xjov7XSkWgyLFeZuMU3LB3bNXdqMwc5YtjG8EqtX0')}`
+              }
+            }
+          ).then(
+            response => {
+              const images = response.data.d.results.filter(image => {
+                return image.ContentType === 'image/png'
+              }).map(image => {
+                return image.MediaUrl
+              }).splice(0, 6)
+              this.$set('imageResults', images)
+            },
+            error => {
+              console.log(error)
+              this.$set('imageResults', [])
+            }
+          )
+        }
+      }
+    },
+    // HELPERS
+    methods: {
+      setImageUrl (newUrl) {
+        this.$set('imageUrl', newUrl)
+        this.$set('imageResults', [])
+      },
+      isUrl (url) {
+        return /^https?:\/\//.test(url)
       }
     }
   }
@@ -149,6 +200,26 @@
 
       &:hover > input {
         opacity: $title-image-input-hover-opacity;
+      }
+
+      .image-search-results {
+        position: absolute;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        vertical-align: center;
+        box-sizing: border-box;
+
+        li {
+          width: 33.33333333333%;
+          padding: 20px;
+          list-style-type: none;
+
+          img {
+            max-width: 100%;
+            cursor: pointer;
+          }
+        }
       }
     }
   }
