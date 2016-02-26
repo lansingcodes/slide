@@ -1,6 +1,6 @@
 import QueryString from 'query-string'
 
-export default (name) => {
+export default name => {
   return {
     getValue () {
       return QueryString.parse(window.location.search)[name]
