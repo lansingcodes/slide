@@ -52,7 +52,8 @@
     // COMPUTED
     computed: {
       currentGroupUpcomingTitle () {
-        return this.currentEvent && ('Upcoming ' + this.currentEvent.relationships.group.attributes.focus)
+        if (!this.currentEvent) return null
+        return `Upcoming ${this.currentEvent.relationships.group.attributes.focus}`
       }
     },
     // LIFECYCLE
@@ -91,6 +92,7 @@
               this.$set('groupEvents', groupEvents)
 
               if (currentEvent === undefined) {
+                this.$set('currentEvent', null)
                 this.$set('otherEvents', [])
                 return
               }

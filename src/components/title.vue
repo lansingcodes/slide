@@ -209,6 +209,9 @@
         align-items: center;
         vertical-align: center;
         box-sizing: border-box;
+        padding: 0;
+        background: $slide-bg;
+        z-index: 1;
 
         li {
           width: 33.33333333333%;

@@ -44,7 +44,14 @@
     // WATCHERS
     watch: {
       value (newValue, oldValue) {
-        this.queryAttribute.setValue(newValue)
+        if (newValue === this.defaultValue) {
+          this.queryAttribute.setValue(null)
+        } else {
+          this.queryAttribute.setValue(newValue)
+        }
+      },
+      defaultValue (newValue, oldValue) {
+        this.$set('value', newValue)
       }
     }
   }

@@ -7,11 +7,15 @@ export default name => {
     },
     setValue (newValue) {
       const params = QueryString.parse(window.location.search)
-      params[name] = newValue
+      if (newValue === null) {
+        delete params[name]
+      } else {
+        params[name] = newValue
+      }
       window.history.replaceState({}, document.title,
         window.location.origin +
         window.location.pathname +
-        '?' +
+        (Object.keys(params).length > 0 ? '?' : '') +
         QueryString.stringify(params) +
         window.location.hash
       )

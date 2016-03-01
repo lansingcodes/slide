@@ -6,7 +6,7 @@ import VueResource from 'vue-resource'
 import App from './App'
 
 // CONFIG
-Vue.config.debug = false
+Vue.config.debug = !!window.location.port
 Vue.use(VueResource)
 
 /* eslint-disable no-new */
