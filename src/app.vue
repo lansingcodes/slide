@@ -76,9 +76,9 @@
         // Don't even try to fetch events if
         // no group focus has been set
         if (this.groupFocus.length === 0) {
-          this.$set('currentEvent', null)
-          this.$set('groupEvents', [])
-          this.$set('otherEvents', [])
+          this.currentEvent = null
+          this.groupEvents = []
+          this.otherEvents = []
           return
         }
 
@@ -88,12 +88,12 @@
             response => {
               let groupEvents = rehydrateJSON(response.data)
               const currentEvent = groupEvents.shift()
-              this.$set('currentEvent', currentEvent)
-              this.$set('groupEvents', groupEvents)
+              this.currentEvent = currentEvent
+              this.groupEvents = groupEvents
 
               if (currentEvent === undefined) {
-                this.$set('currentEvent', null)
-                this.$set('otherEvents', [])
+                this.currentEvent = null
+                this.otherEvents = []
                 return
               }
 
@@ -105,7 +105,7 @@
                       return event.relationships.group.attributes.slug !== currentEvent.relationships.group.attributes.slug &&
                         !moment(event.attributes.time.absolute).isSame(new Date(), 'day')
                     })
-                    this.$set('otherEvents', otherEvents)
+                    this.otherEvents = otherEvents
                   }, error => {
                     throw new Error('Could not communicate with api.lansing.codes ::', error)
                   }
@@ -119,7 +119,7 @@
         return decodeURIComponent(window.location.hash.slice(1))
       },
       setGroupFocus () {
-        this.$set('groupFocus', this.getHashFromURL())
+        this.groupFocus = this.getHashFromURL()
       }
     }
   }

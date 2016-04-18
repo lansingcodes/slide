@@ -51,7 +51,7 @@
         }
       },
       defaultValue (newValue, oldValue) {
-        this.$set('value', newValue)
+        this.value = newValue
       }
     }
   }

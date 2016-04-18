@@ -84,9 +84,9 @@
     ready () {
       this.currentTopicIndexUpdater = setInterval(() => {
         if (this.currentTopicIndex === possibleTopics.length - 1) {
-          this.$set('currentTopicIndex', 0)
+          this.currentTopicIndex = 0
         } else {
-          this.$set('currentTopicIndex', this.currentTopicIndex + 1)
+          this.currentTopicIndex += 1
         }
       }, 3000)
     },
@@ -117,11 +117,11 @@
               }).map(image => {
                 return image.MediaUrl
               }).splice(0, 6)
-              this.$set('imageResults', images)
+              this.imageResults = images
             },
             error => {
               console.log(error)
-              this.$set('imageResults', [])
+              this.imageResults = []
             }
           )
         }
@@ -130,8 +130,8 @@
     // HELPERS
     methods: {
       setImageUrl (newUrl) {
-        this.$set('imageUrl', newUrl)
-        this.$set('imageResults', [])
+        this.imageUrl = newUrl
+        this.imageResults = []
       },
       isUrl (url) {
         return /^https?:\/\//.test(url)
