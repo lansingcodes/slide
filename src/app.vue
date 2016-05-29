@@ -1,5 +1,11 @@
 <template>
   <div id="app">
+    <div
+      v-if="!isFetchingEvents && !currentEvent && groupFocus"
+      class="error-message"
+    >
+      <span>No upcoming events found for <strong>{{ groupFocus }}</strong>.</span>
+    </div>
     <title
       :event="currentEvent"
     ></title>
@@ -46,7 +52,8 @@
         currentEvent: null,
         groupEvents: [],
         otherEvents: [],
-        groupFocus: this.getHashFromURL()
+        groupFocus: this.getHashFromURL(),
+        isFetchingEvents: false
       }
     },
     // COMPUTED
@@ -82,10 +89,14 @@
           return
         }
 
+        this.isFetchingEvents = true
+
         this.$http
           .get(`http://api.lansing.codes/v1/events/upcoming/search/${encodeURIComponent(this.groupFocus)}?per_group_limit=5`)
           .then(
             response => {
+              this.isFetchingEvents = false
+
               let groupEvents = rehydrateJSON(response.data)
               const currentEvent = groupEvents.shift()
               this.currentEvent = currentEvent
@@ -157,5 +168,16 @@
     width: 100%;
     height: 100%;
     position: relative;
+  }
+  .error-message {
+    text-align: center;
+    font-size: 2em;
+    color: rgb(149, 41, 26);
+
+    & > span {
+      padding: 10px;
+      background: rgba(149, 41, 26, 0.1);
+      box-shadow: 0 0 10px 10px rgba(149, 41, 26, 0.1);
+    }
   }
 </style>
