@@ -3,7 +3,7 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 
 // COMPONENTS
-import App from './App'
+import App from './app'
 
 // CONFIG
 Vue.config.debug = !!window.location.port
