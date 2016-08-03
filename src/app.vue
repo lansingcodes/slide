@@ -92,7 +92,7 @@
         this.isFetchingEvents = true
 
         this.$http
-          .get(`http://api.lansing.codes/v1/events/upcoming/search/${encodeURIComponent(this.groupFocus)}?per_group_limit=5`)
+          .get(`https://api.lansing.codes/v1/events/upcoming/search/${encodeURIComponent(this.groupFocus)}?per_group_limit=5`)
           .then(
             response => {
               this.isFetchingEvents = false
@@ -109,7 +109,7 @@
               }
 
               this.$http
-                .get('http://api.lansing.codes/v1/events/upcoming/list')
+                .get('https://api.lansing.codes/v1/events/upcoming/list')
                 .then(
                   response => {
                     const otherEvents = rehydrateJSON(response.data).filter(event => {
