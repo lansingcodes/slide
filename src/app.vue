@@ -42,6 +42,7 @@
   import Logo from './components/logo'
 
   export default {
+    replace: false,
     // COMPONENTS
     components: {
       Title, Wifi, UpcomingEvents, SlackInvitation, Logo
