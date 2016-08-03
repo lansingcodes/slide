@@ -1,76 +1,77 @@
+var path = require('path')
+var config = require('../config')
 var webpack = require('webpack')
-var config = require('./webpack.base.conf')
+var merge = require('webpack-merge')
+var baseWebpackConfig = require('./webpack.base.conf')
+var cssLoaders = require('./css-loaders')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var PrerenderSpaPlugin = require('prerender-spa-plugin')
 
-// naming output files with hashes for better caching.
-// dist/index.html will be auto-generated with correct URLs.
-config.output.filename = '[name].[chunkhash].js'
-config.output.chunkFilename = '[id].[chunkhash].js'
+module.exports = merge(baseWebpackConfig, {
+  devtool: config.build.productionSourceMap ? '#source-map' : false,
+  output: {
+    path: config.build.assetsRoot,
+    filename: path.join(config.build.assetsSubDirectory, '[name].[chunkhash].js'),
+    chunkFilename: path.join(config.build.assetsSubDirectory, '[id].[chunkhash].js')
+  },
+  vue: {
+    loaders: cssLoaders({
+      sourceMap: config.build.productionSourceMap,
+      extract: true
+    })
+  },
+  plugins: [
+    // http://vuejs.github.io/vue-loader/workflow/production.html
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    // extract css into its own file
+    new ExtractTextPlugin(path.join(config.build.assetsSubDirectory, '[name].[contenthash].css')),
+    // generate dist index.html with correct asset hash for caching.
+    // you can customize output by editing /index.html
+    // see https://github.com/ampedandwired/html-webpack-plugin
+    new HtmlWebpackPlugin({
+      filename: process.env.NODE_ENV === 'testing'
+        ? 'index.html'
+        : config.build.index,
+      template: 'index.html',
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      },
+      chunksSortMode: 'dependency'
+    }),
 
-// whether to generate source map for production files.
-// disabling this can speed up the build.
-var SOURCE_MAP = true
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: function (module, count) {
+        return (
+          module.resource &&
+          module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
+        )
+      }
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      chunks: ['vendor']
+    }),
 
-config.devtool = SOURCE_MAP ? 'source-map' : false
-
-// generate loader string to be used with extract text plugin
-function generateExtractLoaders (loaders) {
-  return loaders.map(function (loader) {
-    var extraParamChar
-    if (/\?/.test(loader)) {
-      loader = loader.replace(/\?/, '-loader?')
-      extraParamChar = '&'
-    } else {
-      loader = loader + '-loader'
-      extraParamChar = '?'
-    }
-    return loader + (SOURCE_MAP ? extraParamChar + 'sourceMap' : '')
-  }).join('!')
-}
-
-// http://vuejs.github.io/vue-loader/configurations/extract-css.html
-var cssExtractLoaders = {
-  css: ExtractTextPlugin.extract('vue-style-loader', generateExtractLoaders(['css'])),
-  scss: ExtractTextPlugin.extract('vue-style-loader', generateExtractLoaders(['css', 'sass']))
-}
-
-config.vue = config.vue || {}
-config.vue.loaders = config.vue.loaders || {}
-Object.keys(cssExtractLoaders).forEach(function (key) {
-  config.vue.loaders[key] = cssExtractLoaders[key]
+    new PrerenderSpaPlugin(
+      path.join(__dirname, '../dist'),
+      [ '/' ]
+    )
+  ]
 })
-
-config.plugins = (config.plugins || []).concat([
-  // http://vuejs.github.io/vue-loader/workflow/production.html
-  new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: '"production"'
-    }
-  }),
-  new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false
-    }
-  }),
-  new webpack.optimize.OccurenceOrderPlugin(),
-  // extract css into its own file
-  new ExtractTextPlugin('[name].[contenthash].css'),
-  // generate dist index.html with correct asset hash for caching.
-  // you can customize output by editing /src/index.html
-  // see https://github.com/ampedandwired/html-webpack-plugin
-  new HtmlWebpackPlugin({
-    filename: '../index.html',
-    template: 'src/index.html',
-    inject: true,
-    minify: {
-      removeComments: true,
-      collapseWhitespace: true,
-      removeAttributeQuotes: true
-      // more options:
-      // https://github.com/kangax/html-minifier#options-quick-reference
-    }
-  })
-])
-
-module.exports = config
