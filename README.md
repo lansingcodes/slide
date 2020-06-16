@@ -1,5 +1,8 @@
 # Welcome slide generator for Lansing tech events
 
+## Code of Conduct
+All participants are expected to treat others with respect and follow our [Code of Conduct](https://www.lansing.codes/code-of-conduct/).
+
 ## Build Setup
 
 ``` bash
@@ -15,5 +18,4 @@ npm test
 
 This project uses HTML, Babel JavaScript, and SCSS organized into Vue components. Check out [vuejs.org](http://vuejs.org/guide/) to learn more.
 
-## Code of Conduct
-All participants are expected to treat others with respect and follow our [Code of Conduct](https://www.lansing.codes/code-of-conduct/).
+
