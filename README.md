@@ -44,6 +44,6 @@ All participants are expected to treat others with respect and follow our [Code 
 
 ## Build Setup
 
-This project uses HTML, JavaScript, and CSS so it can remain approachable to beginners.
+This project uses HTML, JavaScript, bootstrap4, and CSS so it can remain approachable to beginners.
 
 
