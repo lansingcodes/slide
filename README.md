@@ -28,7 +28,7 @@ All participants are expected to treat others with respect and follow our [Code 
   requests back to the `main` branch.
 
 - Add your name (and optional email and website) to the [contributors.md](contributors.md)
-  in `package.json`. We want people to know you're helping out!
+  file.  We want people to know you're helping out!
 
 - If adding a new feature, first create an issue by following the instructions
   in the [Issue Reporting Guidelines](#issue-reporting-guidelines).
