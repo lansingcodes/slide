@@ -1,3 +1,4 @@
 # Contributors
-- Erik Gillespie[github](https://egillespie)
-- Joe Ryan [github](https://github.com/joeryan)
+
+- Erik Gillespie ([github](https://egillespie))
+- Joe Ryan ([github](https://github.com/joeryan))
