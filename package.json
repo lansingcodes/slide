@@ -4,7 +4,8 @@
   "description": "Welcome slide generator for Lansing tech events",
   "contributors": [
     "Joe Ryan",
-    "Erik Gillespie"
+    "Erik Gillespie",
+    "Vincent Maule"
   ],
   "scripts": {
     "start": "live-server"
