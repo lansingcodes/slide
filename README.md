@@ -38,4 +38,4 @@ Before you get ahead of yourself though, please read our
 
 [Hippocratic 2.1](https://firstdonoharm.dev)
 
-Copyright (c) 2020-present, Humanity Codes LLC
+Copyright (c) 2016-Present, Humanity Codes LLC
