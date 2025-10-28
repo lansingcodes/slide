@@ -1,6 +1,6 @@
-@lansingcodes/slide Copyright 2016-Present Humanity Codes, LLC(“Licensor”)
+@lansingcodes/slide Copyright 2016-Present Michigan Technology Network (MITN) (“Licensor”)
 
-Hippocratic License Version Number: 2.1.
+# Hippocratic License Version Number: 2.1
 
 Purpose. The purpose of this License is for the Licensor named above to permit the Licensee (as defined below) broad permission, if consistent with Human Rights Laws and Human Rights Principles (as each is defined below), to use and work with the Software (as defined below) within the full scope of Licensor’s copyright and patent rights, if any, in the Software, while ensuring attribution and protecting the Licensor from liability.
 
@@ -30,4 +30,4 @@ Permission and Conditions. The Licensor grants permission by this license (“Li
 
 * Disclaimer. TO THE FULL EXTENT ALLOWED BY LAW, THIS SOFTWARE COMES “AS IS,” WITHOUT ANY WARRANTY, EXPRESS OR IMPLIED, AND LICENSOR AND ANY OTHER CONTRIBUTOR SHALL NOT BE LIABLE TO ANYONE FOR ANY DAMAGES OR OTHER LIABILITY ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THIS LICENSE, UNDER ANY KIND OF LEGAL CLAIM.
 
-This Hippocratic License is an Ethical Source license (https://ethicalsource.dev) and is offered for use by licensors and licensees at their own risk, on an “AS IS” basis, and with no warranties express or implied, to the maximum extent permitted by Laws.
+This Hippocratic License is an Ethical Source license (<https://ethicalsource.dev>) and is offered for use by licensors and licensees at their own risk, on an “AS IS” basis, and with no warranties express or implied, to the maximum extent permitted by Laws.

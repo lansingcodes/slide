@@ -5,7 +5,8 @@
   "contributors": [
     "Joe Ryan",
     "Erik Gillespie",
-    "Vincent Maule"
+    "Vincent Maule",
+    "Kristen Belcher"
   ],
   "scripts": {
     "start": "live-server"
