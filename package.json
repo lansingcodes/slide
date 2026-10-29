@@ -9,7 +9,9 @@
     "Kristen Belcher"
   ],
   "scripts": {
-    "start": "live-server"
+    "start": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,9 @@
   },
   "homepage": "https://github.com/lansingcodes/slide#readme",
   "devDependencies": {
-    "live-server": "^1.2.1"
+    "vite": "^7.3.7"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8"
   }
 }

@@ -7,6 +7,13 @@ It's intended to be a useful starting slide for event organizers to use at the
 beginning of a tech event. The slide is bookmarkable, shows upcoming events,
 wifi info, the main topic for the event, and sponsors. At least, eventually.
 
+## Local development
+
+Run `npm ci`, then `npm start` to edit the slide locally. Run `npm run build`
+to produce the deployable static site in `dist/`; `npm run preview` serves that
+build for local review. Bootstrap CSS is bundled locally. The event, speaker,
+and sponsor fields are still placeholders for the planned generator feature.
+
 ## Code of Conduct
 
 All participants are expected to treat others with respect and follow our

@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" role="img" aria-label="Add an image">
+  <rect width="300" height="200" fill="#e9ecef"/>
+  <text x="150" y="105" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#495057">Add an image</text>
+</svg>
