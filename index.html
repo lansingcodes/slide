@@ -18,26 +18,30 @@
         </div>
         <div id="wificode" class="col-sm-6 text-md-end">
           <!-- fields should be editable locally once slide is loaded -->
-          <label for="ssid">WiFi SSID:</label>
-          <input type="text" id="ssid" name="ssid" placeholder="ssid"></input>
-          <label for="pass">WiFi Password:</label>
-          <input type="text" id="pass" name="pass" placeholder="thepass"></input>
+          <div class="wifi-field">
+            <label for="ssid">WiFi SSID:</label>
+            <input type="text" id="ssid" name="ssid" placeholder="ssid">
+          </div>
+          <div class="wifi-field">
+            <label for="pass">WiFi Password:</label>
+            <input type="text" id="pass" name="pass" placeholder="thepass">
+          </div>
         </div>
       </div>
 
-      <div id="main-text" class="d-flex">
+      <div id="main-text" class="d-flex flex-column flex-md-row align-items-center">
         <!-- generate welcome page details from url -->
-        <div class="col-sm-3 flex-row">
-          <img id="sponsor-image" class="float-end responsive" alt="Sponsor Image"
+        <div class="col-md-3">
+          <img id="sponsor-image" class="responsive d-block mx-auto" alt="Sponsor Image"
             src="/placeholder.svg"/>
         </div>
-        <div class="col-sm-6 text-center align-center flex-row flex-grow-1">
+        <div class="col-md-6 text-center flex-grow-1">
           <h1 id=meetup>Meeting Name</h1>
           <h1 id=speaker>Speaker</h1>
           <h2 id=topic>Topic</h2>
         </div>
-        <div class="col-sm-3 flex-row">
-          <img id="speaker-image" class="float-start responsive" alt="Speaker Image"
+        <div class="col-md-3">
+          <img id="speaker-image" class="responsive d-block mx-auto" alt="Speaker Image"
             src="/placeholder.svg"/>
         </div>      
       </div>
