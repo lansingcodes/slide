@@ -14,6 +14,24 @@ to produce the deployable static site in `dist/`; `npm run preview` serves that
 build for local review. Bootstrap CSS is bundled locally. The event, speaker,
 and sponsor fields are still placeholders for the planned generator feature.
 
+## Link to a specific slide
+
+Pass `meeting`, `speaker`, and `topic` as URL query parameters to fill the
+slide headings. For example:
+
+```text
+https://slide.lansing.codes/?meeting=Lansing%20JavaScript&speaker=Alex%20Smith&topic=Testing%20web%20apps
+```
+
+Leave a parameter out to keep that heading's placeholder. URL values are shown
+as plain text and limited to 120 characters per heading. A bare group hash
+(such as `#javascript`) and automatic Meetup lookups are not implemented yet.
+This link format lets organizers prepare a slide while those integrations are
+built.
+
+Run `npm test` for URL parsing checks, then `npm run build` and `npm run preview`
+to inspect the built slide locally.
+
 ## Code of Conduct
 
 All participants are expected to treat others with respect and follow our
