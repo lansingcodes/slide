@@ -29,3 +29,7 @@
         max-width: 12rem;
     }
 }
+#main-text h1,
+#main-text h2 {
+    overflow-wrap: anywhere;
+}
