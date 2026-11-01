@@ -13,3 +13,20 @@ export function slideDetailsFromUrl(url) {
     topic: get('topic')
   };
 }
+
+export function slideImagesFromUrl(url) {
+  const params = new URL(url).searchParams;
+  const image = (field) => {
+    const value = params.get(field);
+    if (!value || value.length > 2048) return undefined;
+    try {
+      const parsed = new URL(value);
+      return parsed.protocol === 'https:' && !parsed.username && !parsed.password
+        ? parsed.href
+        : undefined;
+    } catch {
+      return undefined;
+    }
+  };
+  return { sponsorImage: image('sponsorImage'), speakerImage: image('speakerImage') };
+}
