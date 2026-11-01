@@ -12,7 +12,7 @@ wifi info, the main topic for the event, and sponsors. At least, eventually.
 Run `npm ci`, then `npm start` to edit the slide locally. Run `npm run build`
 to produce the deployable static site in `dist/`; `npm run preview` serves that
 build for local review. Bootstrap CSS is bundled locally. The event, speaker,
-and sponsor fields are still placeholders for the planned generator feature.
+and sponsor fields are still placeholders for the planned event-feed feature.
 
 ## Link to a specific slide
 
@@ -28,6 +28,12 @@ as plain text and limited to 120 characters per heading. A bare group hash
 (such as `#javascript`) and automatic Meetup lookups are not implemented yet.
 This link format lets organizers prepare a slide while those integrations are
 built.
+
+You can also add `sponsorImage` and `speakerImage` parameters with HTTPS
+image URLs. Those images appear when the link is opened again. To preview a
+picture from your computer without uploading it, open **Set slide images** on
+the slide and choose a file under 10 MB. Local file previews last only until
+you close or reload the page; they are not stored in the bookmarkable URL.
 
 Run `npm test` for URL parsing checks, then `npm run build` and `npm run preview`
 to inspect the built slide locally.
