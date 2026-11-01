@@ -1,5 +1,5 @@
 import './main.css';
-import { slideDetailsFromUrl, slideImagesFromUrl, safeHttpsUrl, parseEventLines, slideEventsFromUrl, lansingToday } from './slide-content.mjs';
+import { slideDetailsFromUrl, slideImagesFromUrl, safeHttpsUrl, parseEventLines, slideEventsFromUrl, serializeEventLines, lansingToday } from './slide-content.mjs';
 
 const today = lansingToday();
 const params = new URL(window.location.href).searchParams;
@@ -31,7 +31,10 @@ updateTitleSize();
 for (const field of ['ssid', 'pass']) {
   const input = document.getElementById(field);
   input.value = params.get(field)?.slice(0, 120) || '';
-  input.addEventListener('change', () => setParam(field, input.value.trim().slice(0, 120)));
+  input.addEventListener('change', () => {
+    input.value = input.value.slice(0, 120);
+    setParam(field, input.value);
+  });
 }
 const meetupUrl = safeHttpsUrl(params.get('meetupUrl')) || 'https://www.meetup.com/lansing-codes-meetup/';
 document.getElementById('meetup-link').href = meetupUrl;
@@ -86,13 +89,18 @@ const eventSettings = { lcEvents: ['lc-events-setting', 'lc-events'], groupEvent
 const initialEvents = slideEventsFromUrl(window.location.href, today);
 for (const [field, [inputId, listId]] of Object.entries(eventSettings)) {
   const input = document.getElementById(inputId);
-  input.value = initialEvents[field].map(({ date, title, url }) => `${date} | ${title} | ${url}`).join('\n');
+  input.value = serializeEventLines(initialEvents[field]) || '';
   renderEvents(listId, initialEvents[field]);
   input.addEventListener('change', () => {
     const { events, invalid } = parseEventLines(input.value, today);
-    input.value = events.map(({ date, title, url }) => `${date} | ${title} | ${url}`).join('\n');
+    const serialized = serializeEventLines(events);
+    if (serialized === undefined) {
+      document.getElementById('setup-status').textContent = 'Event list is too long to share. Shorten titles or links and try again.';
+      return;
+    }
+    input.value = serialized;
     renderEvents(listId, events);
-    setParam(field, input.value);
+    setParam(field, serialized);
     document.getElementById('setup-status').textContent = invalid ? `${invalid} invalid or past event line${invalid === 1 ? '' : 's'} skipped.` : 'Event list updated in the URL.';
   });
 }

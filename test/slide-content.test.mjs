@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { slideDetailsFromUrl, slideImagesFromUrl } from '../slide-content.mjs';
+import { slideDetailsFromUrl, slideImagesFromUrl, safeHttpsUrl, serializeEventLines } from '../slide-content.mjs';
 
 test('reads and normalizes meeting details from the URL', () => {
   assert.deepEqual(
@@ -38,6 +38,16 @@ test('accepts only bounded HTTPS image URLs without credentials', () => {
   }
 });
 
+test('rejects a URL when encoding expands it beyond the saved limit', () => {
+  const expanded = `https://example.org/${'é'.repeat(400)}`;
+  assert.ok(expanded.length < 2048);
+  assert.ok(new URL(expanded).href.length > 2048);
+  assert.equal(safeHttpsUrl(expanded), undefined);
+  const url = new URL('https://slide.lansing.codes/');
+  url.searchParams.set('sponsorImage', expanded);
+  assert.equal(slideImagesFromUrl(url.href).sponsorImage, undefined);
+});
+
 import { parseEventLines, slideEventsFromUrl, lansingToday } from '../slide-content.mjs';
 
 test('keeps the next three valid events in date order and rejects unsafe links', () => {
@@ -65,6 +75,17 @@ test('rejects invalid dates and credentialed URLs and limits URL event data', ()
     lcEvents: [{ date: '2026-12-01', title: 'Meetup', url: 'https://example.org/event' }],
     groupEvents: []
   });
+});
+
+test('rejects an event list that would disappear when reopened', () => {
+  const events = [0, 1, 2].map((index) => ({
+    date: `2026-12-0${index + 1}`,
+    title: 'T'.repeat(120),
+    url: `https://example.org/${'a'.repeat(2028)}`
+  }));
+  assert.equal(serializeEventLines(events), undefined);
+  const short = [{ date: '2026-12-01', title: 'Meetup', url: 'https://example.org/event' }];
+  assert.equal(serializeEventLines(short), '2026-12-01 | Meetup | https://example.org/event');
 });
 
 test('uses the Lansing calendar date around a UTC day boundary', () => {

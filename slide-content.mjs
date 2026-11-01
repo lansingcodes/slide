@@ -16,18 +16,7 @@ export function slideDetailsFromUrl(url) {
 
 export function slideImagesFromUrl(url) {
   const params = new URL(url).searchParams;
-  const image = (field) => {
-    const value = params.get(field);
-    if (!value || value.length > 2048) return undefined;
-    try {
-      const parsed = new URL(value);
-      return parsed.protocol === 'https:' && !parsed.username && !parsed.password
-        ? parsed.href
-        : undefined;
-    } catch {
-      return undefined;
-    }
-  };
+  const image = (field) => safeHttpsUrl(params.get(field));
   return { sponsorImage: image('sponsorImage'), speakerImage: image('speakerImage') };
 }
 
@@ -35,7 +24,9 @@ export function safeHttpsUrl(value) {
   if (!value || value.length > 2048) return undefined;
   try {
     const url = new URL(value);
-    return url.protocol === 'https:' && !url.username && !url.password ? url.href : undefined;
+    return url.protocol === 'https:' && !url.username && !url.password && url.href.length <= 2048
+      ? url.href
+      : undefined;
   } catch { return undefined; }
 }
 
@@ -65,6 +56,11 @@ export function slideEventsFromUrl(url, today = '0000-01-01') {
     return value && value.length <= 6000 ? parseEventLines(value, today).events : [];
   };
   return { lcEvents: read('lcEvents'), groupEvents: read('groupEvents') };
+}
+
+export function serializeEventLines(events) {
+  const value = events.map(({ date, title, url }) => `${date} | ${title} | ${url}`).join('\n');
+  return value.length <= 6000 ? value : undefined;
 }
 
 export function lansingToday(now = new Date()) {
