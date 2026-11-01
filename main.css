@@ -8,6 +8,8 @@
     width: 100%;
     max-width: 300px;
     height: auto;
+    max-height: min(30vh, 16rem);
+    object-fit: contain;
 }
 .wifi-field {
     display: flex;
