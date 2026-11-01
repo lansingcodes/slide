@@ -1,18 +1,19 @@
 # Welcome slide generator for Lansing tech events
 
 This is the code behind [slide.lansing.codes](https://slide.lansing.codes), an
-automatically-generated welcome slide for Lansing tech events.
+a shareable welcome slide for Lansing tech events.
 
 It's intended to be a useful starting slide for event organizers to use at the
-beginning of a tech event. The slide is bookmarkable, shows upcoming events,
-wifi info, the main topic for the event, and sponsors. At least, eventually.
+beginning of a tech event. The slide is bookmarkable and shows manually chosen
+upcoming events, venue WiFi, the main topic, and sponsor or speaker images.
 
 ## Local development
 
 Run `npm ci`, then `npm start` to edit the slide locally. Run `npm run build`
 to produce the deployable static site in `dist/`; `npm run preview` serves that
-build for local review. Bootstrap CSS is bundled locally. The event, speaker,
-and sponsor fields are still placeholders for the planned event-feed feature.
+build for local review. The layout uses plain JavaScript and CSS. Automatic
+Meetup event lookup is still planned; event lists can be entered through the
+slide's setup panel in the meantime.
 
 ## Link to a specific slide
 
@@ -23,15 +24,18 @@ slide headings. For example:
 https://slide.lansing.codes/?meeting=Lansing%20JavaScript&speaker=Alex%20Smith&topic=Testing%20web%20apps
 ```
 
-Leave a parameter out to keep that heading's placeholder. URL values are shown
-as plain text and limited to 120 characters per heading. A bare group hash
-(such as `#javascript`) and automatic Meetup lookups are not implemented yet.
-This link format lets organizers prepare a slide while those integrations are
-built.
+Open **Set up this slide** to edit those headings, the Meetup group link,
+images, and two event lists. Enter one event per line as
+`YYYY-MM-DD | Event title | https://event-link`. Up to three valid, future
+events per list appear, sorted by date. Editing the fields updates the URL,
+so the resulting page can be bookmarked and shared. WiFi network and password
+fields update that URL too; share it only when those details are meant for
+everyone with the link. A bare group hash (such as `#javascript`) and
+automatic Meetup lookups are not implemented yet.
 
 You can also add `sponsorImage` and `speakerImage` parameters with HTTPS
 image URLs. Those images appear when the link is opened again. To preview a
-picture from your computer without uploading it, open **Set slide images** on
+picture from your computer without uploading it, open **Set up this slide** on
 the slide and choose a file under 10 MB. Local file previews last only until
 you close or reload the page; they are not stored in the bookmarkable URL.
 

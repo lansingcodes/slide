@@ -1,71 +1,60 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Welcome</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,nofollow">
+    <title>Lansing Codes welcome slide</title>
   </head>
   <body>
-    <div class="container">
-      <div id="header" class="row">
-        <div id="links" class="col-sm-6 text-md-start">
-          <p><img src="https://cdn.brandfolder.io/5H442O3W/as/pl546j-7le8zk-4nzzs1/Slack_Mark_Web.png"
-            height=50 width=50 class="float-start"/>
-          <a href="https://slack.lansing.codes">slack.lansing.codes</a></p>
-          <p>placeholder for meetup link</p>
+    <main class="slide">
+      <header class="slide-header">
+        <nav class="community-links" aria-label="Community links">
+          <a class="brand-link slack-link" href="https://slack.lansing.codes"><span class="brand-mark" aria-hidden="true">✳</span><span>slack.lansing.codes</span></a>
+          <a class="brand-link meetup-link" id="meetup-link" href="https://www.meetup.com/lansing-codes-meetup/"><span class="brand-mark" aria-hidden="true">m</span><span>Meetup</span></a>
+        </nav>
+        <div class="wifi-card" aria-label="Venue WiFi">
+          <span class="eyebrow">Venue WiFi</span>
+          <label>Network <input id="ssid" name="ssid" type="text" maxlength="120" placeholder="Network name" autocomplete="off"></label>
+          <label>Password <input id="pass" name="pass" type="text" maxlength="120" placeholder="Password" autocomplete="off"></label>
         </div>
-        <div id="wificode" class="col-sm-6 text-md-end">
-          <!-- fields should be editable locally once slide is loaded -->
-          <div class="wifi-field">
-            <label for="ssid">WiFi SSID:</label>
-            <input type="text" id="ssid" name="ssid" placeholder="ssid">
-          </div>
-          <div class="wifi-field">
-            <label for="pass">WiFi Password:</label>
-            <input type="text" id="pass" name="pass" placeholder="thepass">
-          </div>
-        </div>
-      </div>
+      </header>
 
-      <div id="main-text" class="d-flex flex-column flex-md-row align-items-center">
-        <!-- generate welcome page details from url -->
-        <div class="col-md-3">
-          <img id="sponsor-image" class="responsive d-block mx-auto" alt="Sponsor Image"
-            src="/placeholder.svg"/>
+      <section class="hero" aria-label="Tonight's event">
+        <div class="hero-image"><img id="sponsor-image" src="/placeholder.svg" alt="Sponsor image"></div>
+        <div class="hero-copy">
+          <span class="eyebrow">Welcome to Lansing Codes</span>
+          <h1 id="meetup">Meeting Name</h1>
+          <p id="speaker" class="speaker">Speaker</p>
+          <p id="topic" class="topic">Topic</p>
         </div>
-        <div class="col-md-6 text-center flex-grow-1">
-          <h1 id=meetup>Meeting Name</h1>
-          <h1 id=speaker>Speaker</h1>
-          <h2 id=topic>Topic</h2>
-        </div>
-        <div class="col-md-3">
-          <img id="speaker-image" class="responsive d-block mx-auto" alt="Speaker Image"
-            src="/placeholder.svg"/>
-        </div>      
-      </div>
+        <div class="hero-image"><img id="speaker-image" src="/placeholder.svg" alt="Speaker image"></div>
+      </section>
 
-      <div id="footer" class="row">
-        <div id="lc-events" class="col-sm-6 text-md-start">
-          <!-- api call to generate list of items -->
-          <p>list of next 3 upcoming Lansing Codes events</p>
-        </div>
-        <div id="meetup-events" class="col-sm-6 text-md-end">
-          <!-- api call to generate list of items -->
-          <p>list of next 3 upcoming events for this meetup</p>
-        </div>
+      <footer class="event-panels">
+        <section class="event-panel" aria-labelledby="lc-heading"><h2 id="lc-heading">Next Lansing Codes events</h2><ol id="lc-events"></ol></section>
+        <section class="event-panel" aria-labelledby="group-heading"><h2 id="group-heading">Next group events</h2><ol id="group-events"></ol></section>
+      </footer>
+    </main>
+
+    <details class="slide-setup">
+      <summary>Set up this slide</summary>
+      <div class="setup-fields">
+        <label>Meeting name <input id="meeting-setting" type="text" maxlength="120"></label>
+        <label>Speaker <input id="speaker-setting" type="text" maxlength="120"></label>
+        <label>Topic <input id="topic-setting" type="text" maxlength="120"></label>
+        <label>Meetup group link <input id="meetup-url-setting" type="url" placeholder="https://www.meetup.com/..."></label>
+        <label>Lansing Codes events <textarea id="lc-events-setting" rows="3" placeholder="2026-11-12 | Event title | https://..."></textarea></label>
+        <label>Group events <textarea id="group-events-setting" rows="3" placeholder="2026-11-12 | Event title | https://..."></textarea></label>
+        <p id="setup-status" role="status"></p>
+        <p class="setup-hint">One event per line: date, title, and HTTPS link separated by |. The slide shows up to three per list. WiFi and event details are kept in the page URL. Share that URL only if its WiFi details are appropriate to share.</p>
+        <label>Sponsor image URL <input id="sponsor-image-url" type="url" placeholder="https://..."></label>
+        <label>Speaker image URL <input id="speaker-image-url" type="url" placeholder="https://..."></label>
+        <label>Sponsor image on this device <input id="sponsor-upload" type="file" accept="image/*"></label>
+        <label>Speaker image on this device <input id="speaker-upload" type="file" accept="image/*"></label>
+        <p id="image-setup-status" role="status">Local image previews are not saved in the URL.</p>
       </div>
-    </div>
-    <details class="image-setup">
-      <summary>Set slide images</summary>
-      <label for="sponsor-upload">Sponsor image</label>
-      <input id="sponsor-upload" type="file" accept="image/*">
-      <label for="speaker-upload">Speaker image</label>
-      <input id="speaker-upload" type="file" accept="image/*">
-      <p id="image-setup-status" role="status">Choose an image to preview it on this device.</p>
     </details>
-    
     <script type="module" src="/main.js"></script>
   </body>
 </html>
